@@ -2,6 +2,7 @@ package de.oumaima.expensetracker.expense;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +24,11 @@ public class ExpenseController {
 
     @GetMapping("/{id}")
     public Expense getById(@PathVariable Long id) {
-        return expenseService.findById(id).orElseThrow();
+        return expenseService.findById(id).orElseThrow(()-> new ExpenseNotFoundException(id)) ;
     }
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Expense create(@RequestBody Expense expense) {
-        return  expenseService.create(expense);
+    public ResponseEntity<Expense> create(@RequestBody Expense expense) {
+        return  ResponseEntity.status(HttpStatus.CREATED).body(expenseService.create(expense));
     }
 
     @PutMapping("/{id}")

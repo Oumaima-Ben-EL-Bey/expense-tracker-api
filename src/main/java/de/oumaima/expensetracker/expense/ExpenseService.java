@@ -28,11 +28,17 @@ public class ExpenseService {
     }
 
     public Expense update(Long id, Expense expense) {
+        if (expenseRepository.findById(id).isEmpty()){
+            throw new ExpenseNotFoundException(id);
+        }
         Expense expenseUpdated = new Expense(id, expense.description(), expense.amount(), expense.date());
         return expenseRepository.save(expenseUpdated);
 
     }
     public void deleteById(Long id) {
+        if (expenseRepository.findById(id).isEmpty()){
+            throw new ExpenseNotFoundException(id);
+        }
         expenseRepository.deleteById(id);
     }
 }
