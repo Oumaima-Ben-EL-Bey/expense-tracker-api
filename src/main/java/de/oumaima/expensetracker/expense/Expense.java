@@ -12,18 +12,12 @@ public class Expense {
     private Long id;
     private String description;
     @Column(precision = 10, scale = 2)
-    private BigDecimal amount;    private LocalDate date;
+    private BigDecimal amount;
+    private LocalDate date;
 
     public Expense(){
-
     }
-    public Expense(Long id, String description, BigDecimal amount, LocalDate date) {
-        this.id = id;
-        this.description = description;
-        this.amount = amount;
-        this.date = date;
 
-    }
 
     public Long getId() {
         return id;
