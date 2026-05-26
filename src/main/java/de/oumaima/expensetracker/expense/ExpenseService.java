@@ -2,6 +2,7 @@ package de.oumaima.expensetracker.expense;
 
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +28,17 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+    @Transactional
     public Expense update(Long id, Expense expense) {
-        if (expenseRepository.findById(id).isEmpty()){
+        Optional<Expense> found = expenseRepository.findById(id);
+        if (found.isEmpty()){
             throw new ExpenseNotFoundException(id);
         }
-        Expense expenseUpdated = new Expense(id, expense.getDescription(), expense.getAmount(), expense.getDate());
-        return expenseRepository.save(expenseUpdated);
+        Expense expenseCaptured = found.get() ;
+        expenseCaptured.setDescription(expense.getDescription());
+        expenseCaptured.setDate(expense.getDate());
+        expenseCaptured.setAmount(expense.getAmount());
+        return expenseCaptured;
 
     }
     public void deleteById(Long id) {
