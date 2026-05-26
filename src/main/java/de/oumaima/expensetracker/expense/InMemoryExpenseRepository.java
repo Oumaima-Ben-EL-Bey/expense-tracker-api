@@ -21,15 +21,16 @@ public class InMemoryExpenseRepository implements ExpenseRepository {
 
     @Override
     public Expense save(Expense expense) {
-        if (expense.id() == null) {
+        if (expense.getId() == null) {
             Long assignedId = nextId++;
-            Expense createdExpense = new Expense(assignedId, expense.description(),expense.amount(),expense.date());
+            Expense createdExpense = new Expense(assignedId,
+                    expense.getDescription(),expense.getAmount(),expense.getDate());
             expenses.put( assignedId,createdExpense );
             return createdExpense;
 
         } else {
             // UPDATE branch: store at the existing id, return the expense
-            expenses.put(expense.id(), expense);
+            expenses.put(expense.getId(), expense);
             return expense;
         }
     }

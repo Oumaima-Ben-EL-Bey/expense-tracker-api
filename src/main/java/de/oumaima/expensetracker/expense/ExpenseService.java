@@ -31,7 +31,7 @@ public class ExpenseService {
         if (expenseRepository.findById(id).isEmpty()){
             throw new ExpenseNotFoundException(id);
         }
-        Expense expenseUpdated = new Expense(id, expense.description(), expense.amount(), expense.date());
+        Expense expenseUpdated = new Expense(id, expense.getDescription(), expense.getAmount(), expense.getDate());
         return expenseRepository.save(expenseUpdated);
 
     }
