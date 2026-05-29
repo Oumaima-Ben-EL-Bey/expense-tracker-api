@@ -14,7 +14,7 @@ public class Expense {
     @Column(precision = 10, scale = 2)
     private BigDecimal amount;
     private LocalDate date;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
     public Expense(){
