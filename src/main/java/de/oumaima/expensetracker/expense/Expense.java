@@ -14,6 +14,8 @@ public class Expense {
     @Column(precision = 10, scale = 2)
     private BigDecimal amount;
     private LocalDate date;
+    @ManyToOne
+    private Category category;
 
     public Expense(){
     }
@@ -49,5 +51,13 @@ public class Expense {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
