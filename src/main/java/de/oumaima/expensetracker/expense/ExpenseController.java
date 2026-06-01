@@ -4,6 +4,7 @@ package de.oumaima.expensetracker.expense;
 import de.oumaima.expensetracker.dto.ExpenseRequest;
 import de.oumaima.expensetracker.dto.ExpenseResponse;
 import de.oumaima.expensetracker.mapper.ExpenseMapper;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +34,14 @@ public class ExpenseController {
     public ExpenseResponse getById(@PathVariable Long id) {
         return expenseService.findById(id).map(expenseMapper::toResponse).orElseThrow(()-> new ExpenseNotFoundException(id)) ;
     }
+
     @PostMapping
-    public ResponseEntity<ExpenseResponse> create(@RequestBody ExpenseRequest expense) {
+    public ResponseEntity<ExpenseResponse> create(@Valid @RequestBody ExpenseRequest expense) {
         return  ResponseEntity.status(HttpStatus.CREATED).body(expenseMapper.toResponse(expenseService.create(expenseMapper.toEntity(expense))));
     }
 
     @PutMapping("/{id}")
-    public ExpenseResponse update(@PathVariable Long id,  @RequestBody ExpenseRequest expense) {
+    public ExpenseResponse update(@PathVariable Long id, @Valid @RequestBody ExpenseRequest expense) {
         return expenseMapper.toResponse(expenseService.update(id, expenseMapper.toEntity(expense)));
     }
     @DeleteMapping("/{id}")
