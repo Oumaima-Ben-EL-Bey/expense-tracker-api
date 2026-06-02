@@ -1,5 +1,6 @@
 package de.oumaima.expensetracker.expense;
 
+import de.oumaima.expensetracker.dto.CategorySummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
@@ -24,4 +26,11 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
                                @Param("startDate") LocalDate startDate,
                                @Param("endDate") LocalDate endDate,
                                Pageable pageable);
+
+    @Query("SELECT new de.oumaima.expensetracker.dto.CategorySummary(c.id, c.name, SUM(e.amount)) " +
+            "FROM Expense e " +
+            "JOIN e.category c " +
+            "GROUP BY c.id, c.name " +
+            "ORDER BY SUM(e.amount) DESC")
+    List<CategorySummary> summarizeByCategory();
 }

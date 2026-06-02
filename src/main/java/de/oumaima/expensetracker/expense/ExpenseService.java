@@ -1,12 +1,14 @@
 package de.oumaima.expensetracker.expense;
 
 
+import de.oumaima.expensetracker.dto.CategorySummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,5 +51,9 @@ public class ExpenseService {
             throw new ExpenseNotFoundException(id);
         }
         expenseRepository.deleteById(id);
+    }
+
+    public List<CategorySummary> summarizeByCategory() {
+        return expenseRepository.summarizeByCategory();
     }
 }

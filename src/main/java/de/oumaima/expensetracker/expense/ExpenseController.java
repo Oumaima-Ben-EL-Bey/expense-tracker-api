@@ -1,6 +1,7 @@
 package de.oumaima.expensetracker.expense;
 
 
+import de.oumaima.expensetracker.dto.CategorySummary;
 import de.oumaima.expensetracker.dto.ExpenseRequest;
 import de.oumaima.expensetracker.dto.ExpenseResponse;
 import de.oumaima.expensetracker.mapper.ExpenseMapper;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/expenses")
@@ -25,7 +27,7 @@ public class ExpenseController {
         this.expenseService = expenseService;
         this.expenseMapper = expenseMapper;
     }
-    
+
     @GetMapping
     public Page<ExpenseResponse> getAll(
             @RequestParam(required = false) Long categoryId,
@@ -56,5 +58,10 @@ public class ExpenseController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         expenseService.deleteById(id);
+    }
+
+    @GetMapping("/summary")
+    public List<CategorySummary> summary() {
+        return expenseService.summarizeByCategory();
     }
 }
