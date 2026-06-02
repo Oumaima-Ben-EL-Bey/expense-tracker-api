@@ -10,8 +10,9 @@ import java.util.List;
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
 
-    @Query("SELECT e FROM Expense e WHERE " +
-            "(:categoryId IS NULL OR e.category.id = :categoryId) AND " +
+    @Query("SELECT e FROM Expense e " +
+            "LEFT JOIN FETCH e.category " +
+            "WHERE (:categoryId IS NULL OR e.category.id = :categoryId) AND " +
             "(CAST(:startDate AS date) IS NULL OR e.date >= :startDate) AND " +
             "(CAST(:endDate AS date) IS NULL OR e.date <= :endDate)")
     List<Expense> findFiltered(@Param("categoryId") Long categoryId,
