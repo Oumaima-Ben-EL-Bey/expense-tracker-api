@@ -1,11 +1,12 @@
 package de.oumaima.expensetracker.expense;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,9 +18,9 @@ public class ExpenseService {
         this.expenseRepository = expenseRepository;
     }
 
-    public List<Expense> findAll(Long categoryId,  LocalDate startDate,  LocalDate endDate){
-        return expenseRepository.findFiltered(categoryId, startDate, endDate);
-
+    public Page<Expense> findAll(Long categoryId, LocalDate startDate, LocalDate endDate,
+                                 Pageable pageable){
+        return expenseRepository.findFiltered(categoryId, startDate, endDate, pageable);
     }
 
     public Optional<Expense> findById(Long id) {
