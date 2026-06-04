@@ -43,6 +43,7 @@ public class ExpenseService {
         expenseCaptured.setDescription(expense.getDescription());
         expenseCaptured.setDate(expense.getDate());
         expenseCaptured.setAmount(expense.getAmount());
+        expenseCaptured.setCategory(expense.getCategory());
         return expenseCaptured;
 
     }
