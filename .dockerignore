@@ -1,0 +1,7 @@
+target/
+.git/
+.idea/
+.gitattributes
+README.md
+LICENSE
+HELP.md
