@@ -1,4 +1,6 @@
 # Expense Tracker API
+[![CI](https://github.com/Oumaima-Ben-EL-Bey/expense-tracker-api/actions/workflows/ci.yml/badge.svg)](https://github.com/Oumaima-Ben-EL-Bey/expense-tracker-api/actions/workflows/ci.yml)
+
 ## Description 
 A REST API for tracking expenses. Built as a portfolio project to learn the Spring Boot ecosystem end-to-end.
 ## Status
