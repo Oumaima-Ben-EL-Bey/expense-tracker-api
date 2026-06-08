@@ -1,0 +1,15 @@
+app = "expense-tracker-oumaima"
+primary_region = "fra"
+
+[build]
+image = "ghcr.io/oumaima-ben-el-bey/expense-tracker-api:latest"
+
+[http_service]
+internal_port = 8080
+force_https = true
+auto_stop_machines = "off"
+min_machines_running = 1
+
+[[vm]]
+size = "shared-cpu-1x"
+memory = "512mb"
